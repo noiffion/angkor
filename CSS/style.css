@@ -1,0 +1,120 @@
+/* General declarations */
+
+html {
+  padding: 0;
+  margin: 0;
+  font-size: 1vw;
+  font-family: "Baloo Tammudu", cursive;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  min-width: 300px;
+  max-width: 1450px;
+}
+
+* {
+  box-sizing: content-box;
+}
+
+*:focus {
+  outline: 1px solid #A52A2A;
+}
+
+a:focus {
+  outline: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+embed, object, video {
+  max-width: 100%;
+}
+
+
+/* Menu icon (3 bars) */
+
+#sideNavButton {
+    display: inline-block;
+    cursor: pointer;
+    transition: margin-left 0.4s;
+    padding: 16px;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #333;
+    margin: 6px 0;
+    transition: 0.5s;
+}
+
+.cross .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+    transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.cross .bar2 { 
+  opacity: 0;
+}
+
+.cross .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+    transform: rotate(45deg) translate(-8px, -8px);
+}
+
+
+/* Sidepanel */
+
+.sideNav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 5vw;
+}
+
+.sideNav a { 
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sideNav a:hover {
+    color: #f1f1f1;
+}
+
+.sideNav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+
+
+
+@media screen and (max-height: 450px) {
+
+  .sideNav {
+      padding-top: 15px;
+  }
+  
+  .sideNav a {
+   font-size: 18px;
+  }
+
+}
