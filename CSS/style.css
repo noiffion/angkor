@@ -1,15 +1,16 @@
 /* General declarations */
 
 html {
-  padding: 0;
+  height: 100%;
   margin: 0;
-  font-size: 1vw;
-  font-family: "Baloo Tammudu", cursive;
+  padding: 0;
+  font-size: 1.5vw;
 }
 
 body {
-  padding: 0;
+  height: 100%;
   margin: 0;
+  padding: 0;
   min-width: 300px;
   max-width: 1450px;
 }
@@ -19,7 +20,7 @@ body {
 }
 
 *:focus {
-  outline: 1px solid #A52A2A;
+  outline: 1px solid #9ACD32;
 }
 
 a:focus {
@@ -37,84 +38,120 @@ embed, object, video {
 
 
 /* Menu icon (3 bars) */
+nav {
+  height: 4.5vw;
+  background-color: #9ACD32;
+  transition: margin-left 0.3s;
+}
 
 #sideNavButton {
-    display: inline-block;
-    cursor: pointer;
-    transition: margin-left 0.4s;
-    padding: 16px;
+  display: inline-block;
+  cursor: pointer;
+  padding: 1vw;
 }
 
 .bar1, .bar2, .bar3 {
-    width: 35px;
-    height: 5px;
-    background-color: #333;
-    margin: 6px 0;
-    transition: 0.5s;
+  width: 2vw;
+  height: 0.4vw;
+  background-color: #333333;
+  margin: 0.33vw 0;
+  transition: 0.5s;
 }
 
 .cross .bar1 {
-    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-    transform: rotate(-45deg) translate(-9px, 6px);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);  
 }
 
 .cross .bar2 { 
-  opacity: 0;
+  display: none;
 }
 
 .cross .bar3 {
-    -webkit-transform: rotate(45deg) translate(-8px, -8px);
-    transform: rotate(45deg) translate(-8px, -8px);
+  -webkit-transform: rotate(45deg) translate(-0.5vw, -0.5vw);  
+  transform: rotate(45deg) translate(-0.5vw, -0.5vw);
+}
+
+
+/* Searchbox */
+#inputSight {
+ border: 1px solid #9ACD32;
+ width: 11.5vw;
+ background-image: url('./../IMG/searchicon.png');
+ background-size: 2vw 2vw;
+ background-position: left;
+ background-repeat: no-repeat;
+ margin: 0 0 1vw 0;
+ padding: 1vw 1vw 1vw 2.3vw;
+ font-size: 0.8rem;
 }
 
 
 /* Sidepanel */
-
 .sideNav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.3s;
-    padding-top: 5vw;
+  height: 100vh;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  text-align: center;
+  background-color: #111111;
+  overflow-x: hidden;
+  transition: 0.3s;
 }
 
 .sideNav a { 
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 1.5rem;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
+  text-decoration: none;
+  font-size: 1rem;
+  font-family: "Baloo Tammudu", cursive;
+  color: #818181;
+  display: block;
 }
 
 .sideNav a:hover {
-    color: #f1f1f1;
+  color: #f1f1f1;
 }
 
-.sideNav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+.sideNav h2 {
+  font-family: "Baloo Tammudu", cursive;
+  color: #9ACD32;
+  text-decoration: underline;
+}
+
+#sightList {
+  margin: 0;
+  padding: 0 0 0 1vw;
+  list-style: none;
+  text-align: left;
+}
+
+#sightList li {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Gmap */
+main {
+  height: 90vh;
+  max-width: 100vw;
+  transition: margin-left 0.3s;
+}
+
+#gMap {
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 
 
-
-@media screen and (max-height: 450px) {
-
-  .sideNav {
-      padding-top: 15px;
-  }
-  
-  .sideNav a {
-   font-size: 18px;
-  }
+/*
+@media screen and (max-width: 450px) {
 
 }
+*/
