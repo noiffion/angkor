@@ -47,4 +47,4 @@ function searchSights() {
     }
 }
 
-sideNavToggle()
+sideNavToggle();

@@ -4,6 +4,9 @@
   <head>
     <title> Angkor Wat </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="./JS/sights.js"></script>
+    <script async type="text/javascript" src="./JS/flickr.js"></script>
+    <script type="text/javascript" src="./JS/knockout-3.4.2.js"></script>
     <script defer type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8GtH7D9GZ9wxLQgQ4b3UendpuOUOsqYQ&v=3&callback=initMap&language=en">
     </script>
@@ -15,37 +18,33 @@
 
     <aside>
       <div id="mySideNav" class="sideNav">
-        <h2> Sights </h2>
+        <h2> Places </h2>
         <input type="text" id="inputSight" onkeyup="searchSights()" 
                placeholder="Search for places..." title="Location search">
-  
+
         <ul id="sightList">
-          <li><a href="#">Adele</a></li>
-          <li><a href="#">Agnes</a></li>
-          <li><a href="#">Billy</a></li>
-          <li><a href="#">Bob</a></li>
-          <li><a href="#">Calvin</a></li>
-          <li><a href="#">Christina</a></li>
-          <li><a href="#">Cindy</a></li>
         </ul>
       </div>
-     
-      <nav>
-        <div id="sideNavButton">
-          <div class="bar1"></div>
-          <div class="bar2"></div>
-          <div class="bar3"></div>
-        </div>
-      </nav>
-
     </aside>
+     
+    <nav>
+      <div id="sideNavButton">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+      <div id="title">
+        <h1> The sights of Angkor Wat </h1>
+      </div>
+    </nav>
+    
 
     <main>
       <div id="gMap"></div>
     </main>
 
-   <script async type="text/javascript" src="./JS/gmaps.js"></script>
-   <script type="text/javascript" src="./JS/sidebar.js"></script>
+    <script async type="text/javascript" src="./JS/gmaps.js"></script>
+    <script async type="text/javascript" src="./JS/main.js"></script>
   
   </body>
 
