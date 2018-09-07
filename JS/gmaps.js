@@ -10,7 +10,7 @@ var markers = [];
 
 
 // initMap is the callback function called by the googleapi script
-function initMap() {
+function gMapsInit() {
   // Creating a new gMap object
   gMap = new google.maps.Map(document.getElementById('gMap'), {
     center: {lat: 13.412515, lng: 103.867103},
@@ -42,15 +42,30 @@ function initMap() {
     // Check to make sure the infowindow is not already opened on this marker
     infWin.marker = marker;
     infWin.setContent("Loading...");
-    
+
+    // This function creates the infowindow content (error message or pic)
     async function infWinContent() {
       let lat = marker.getPosition().lat();
       let lng = marker.getPosition().lng();
-      // waiting for the 'createImageURL()' defined in flickr.js
-      let imgURI = await createImageURL(lat, lng) 
-      console.log(imgURI);
-      infWin.setContent(`<h2 id="infWinCaption">` + marker.title + `</h2>` +
-                        `<div>` + `<img src="${imgURI}">` + `<div>`);
+      // waiting for the 'createImageURI()' defined in flickr.js
+      let imgURI = await createImageURI(lat, lng);
+      // if there was an error connecting to the Flickr API:
+      if (imgURI['error'] == true) {
+        let errMsg = ["Unfortunately, the photo from", "Flickr could not be reached.",
+                      "Please, consult the consol for", "further information!"];
+        infWin.setContent(`<h2 id="infWinCaption">` + marker.title + `</h2>` +
+                          `<p id="errMsg">` + 
+                           errMsg[0] + `<br>` + errMsg[1] + `<br>` + `<br>` + 
+                           errMsg[2] + `<br>`+ errMsg[3] + `<br>` + 
+                          `</p>`); 
+      // If there was no problem with the Flickr API:
+      } else {
+        let staticURI = imgURI['staticURI'];
+        let galleryURI = imgURI['galleryURI'];
+        infWin.setContent(`<h2 id="infWinCaption">` + marker.title + `</h2>` +
+                          `<a href="${galleryURI}" target="_blank">` +
+                          `<img src="${staticURI}">` + `</a>`); 
+      }
     }
     infWinContent();
     
@@ -99,10 +114,18 @@ function initMap() {
       this.setAnimation(google.maps.Animation.BOUNCE);
       this.setIcon(makeMarkerIcon('FF4500'));
       infoWindow(this, infWin);
-      gMap.setCenter(this.getPosition());
+      // Moving the center of the screen so that the full infoWindow can be seen
+      let infWinPos = this.getPosition().toJSON();
+      let newPosition = {
+        'lat': (infWinPos['lat'] + 0.003),
+        'lng': (infWinPos['lng'])
+      }
+      let newMapCenter = new google.maps.LatLng(newPosition)
+      gMap.setCenter(newMapCenter);
     });
     bounds.extend(markers[i].position);
   }
   // Extend the boundaries of the map for each marker
   gMap.fitBounds(bounds);
 }
+

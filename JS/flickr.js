@@ -16,25 +16,19 @@ async function getPhoto(lat, lon) {
     // URI for the first ('search') API method --> returns 10 pictures
     let searchURL = BASE_URL + ".search" + API_KEY + `&lat=${lat}&lon=${lon}`;
     searchURL += "&radius=0.1&radius_units=km&per_page=10&format=json&nojsoncallback=1";
-    // console.log(searchURL);
 
     let response = await fetch(searchURL);
-    // console.log('The first response (picture id):'); 
-    // console.log(response);
     if (response.ok) {
       let jsonResponse = await response.json();
-      // picking one from the ten returned pics
+      // picking one from the ten returned pics at random
       let rnd = Math.floor(Math.random()*10);
       let photoId = jsonResponse['photos']['photo'][rnd]['id'];
-      // console.log(`The photo id is: ${photoId}`);
 
       // URI for the second ('getInfo') API method
       let getInfURL = BASE_URL + ".getInfo" + API_KEY + "&photo_id=" + photoId +
                          "&format=json&nojsoncallback=1"
       // getting the URL for the pic with Flickr getInf API method
       response = await fetch(getInfURL);
-      // console.log('The second response (image URL):');
-      // console.log(response);
       if (response.ok) {
         jsonResponse = await response.json();
         let photoData = {};
@@ -51,20 +45,24 @@ async function getPhoto(lat, lon) {
 
     // if any other thing went wrong in the 'try' -> print an error message
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
+    return error;
   } 
 }
 
-async function createImageURL(lat, lon) {
+async function createImageURI(lat, lon) {
   // waiting for the photoData object from getPhoto
   let pD = await getPhoto(lat, lon);
-  // console.log('The photo object:');
-  // console.log(pD);
+  // if the 'pD' object has a name it is an error object received from 'getPhoto()'
+  if (pD.name) {
+    return {'error': true};
+  }
   // constructing the URL ('src') of the picture
-  let src = "https://farm" + pD['farm']; 
-  src += ".staticflickr.com/" + pD['server'];
-  src += "/" + pD['id'];
-  src += "_" + pD['secret'] + "_m.jpg";
-  return src;
+  let staticURL = "https://farm" + pD['farm']; 
+  staticURL += ".staticflickr.com/" + pD['server'];
+  staticURL += "/" + pD['id'];
+  staticURL += "_" + pD['secret'] + "_m.jpg";
+  return  {'error': false,
+           'staticURI': staticURL,
+           'galleryURI': pD['flickrURL']}
 }
-
