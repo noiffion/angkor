@@ -8,8 +8,27 @@ var locations = JSON.parse(localStorage.getItem("sights"));
 // Creating the markers (Google Maps pins) array
 var markers = [];
 
+/*
+ *  'gMapsURI()' will set the 'src' and 'onerror' attributes of the gMapsScript <script> tag
+ *  which is a deferred tag in the <head> of the main.html and it establishes the connection
+ *  the Google Maps API 
+ */
+function gMapsURI() {
+  // Displaying an error message on encountering errors (eg. network and firewall problems) 
+  document.getElementById('gMapsScript').setAttribute('onerror', 
+           "document.getElementById('mainFrame').innerHTML =" +
+           "'<br>' + '&nbsp; Unfortunately, we could no load Google Maps. ' + '<br>' +" +
+           "'<br>' + '&nbsp; Check your network connections and firewall settings, please!';");
+  // Setting the GMaps API URI for the 'gMapsScript' <script> tag
+  let gMapsURL = ("https://maps.googleapis.com/maps/api/js?" +
+                  "key=AIzaSyC8GtH7D9GZ9wxLQgQ4b3UendpuOUOsqYQ" + 
+                  "&v=3&callback=gMapsInit&language=en")
+  document.getElementById('gMapsScript').setAttribute('src', gMapsURL);
+};
+// Setting the attributes of the deferred 'gMapsScript' tag by calling 'gMapsURI()'
+gMapsURI();
 
-// initMap is the callback function called by the googleapi script
+// 'gMapsinit()' is the callback function called by the 'gMapsScript' <script>
 function gMapsInit() {
   // Creating a new gMap object
   gMap = new google.maps.Map(document.getElementById('gMap'), {
@@ -18,14 +37,15 @@ function gMapsInit() {
     mapTypeId: google.maps.MapTypeId.SATELLITE
   });
 
-  // On resizing the browser window the center of the map remains in the center of the viewport
+  // Ensuring that on resizing the browser window the center of the map remains in the 
+  // center of the viewport
   google.maps.event.addDomListener(window, "resize", function() {
 	  var center = gMap.getCenter();
 	  google.maps.event.trigger(gMap, "resize");
 		gMap.setCenter(center);
 	});
 
-  // the infWin and bounds variable for the markers
+  // The infWin and bounds variables for the markers (Google Maps pins)
   var infWin = new google.maps.InfoWindow();
   var bounds = new google.maps.LatLngBounds();
   
@@ -39,7 +59,6 @@ function gMapsInit() {
 
   // This function populates the infowindow when a marker is clicked
   function infoWindow(marker, infWin) {
-    // Check to make sure the infowindow is not already opened on this marker
     infWin.marker = marker;
     infWin.setContent("Loading...");
 
@@ -47,8 +66,8 @@ function gMapsInit() {
     async function infWinContent() {
       let lat = marker.getPosition().lat();
       let lng = marker.getPosition().lng();
-      // waiting for the 'createImageURI()' defined in flickr.js
-      let imgURI = await createImageURI(lat, lng);
+      // waiting for the 'getPhoto()' defined in flickr.js
+      let imgURI = await getPhoto(lat, lng);
       // if there was an error connecting to the Flickr API:
       if (imgURI['error'] == true) {
         let errMsg = ["Unfortunately, the photo from", "Flickr could not be reached.",
@@ -58,7 +77,7 @@ function gMapsInit() {
                            errMsg[0] + `<br>` + errMsg[1] + `<br>` + `<br>` + 
                            errMsg[2] + `<br>`+ errMsg[3] + `<br>` + 
                           `</p>`); 
-      // If there was no problem with the Flickr API:
+      // if there was no problem with the Flickr API:
       } else {
         let staticURI = imgURI['staticURI'];
         let galleryURI = imgURI['galleryURI'];
@@ -128,4 +147,3 @@ function gMapsInit() {
   // Extend the boundaries of the map for each marker
   gMap.fitBounds(bounds);
 }
-

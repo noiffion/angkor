@@ -154,6 +154,7 @@ nav {
 
 /* Gmap */
 main {
+  padding: 0;
   height: 90vh;
   max-width: 100vw;
   transition: margin-left 0.3s;
@@ -169,12 +170,18 @@ main {
 }
 
 
-/* InfoWindow caption */
+/* InfoWindow*/
 #infWinCaption {
-    text-align: center;
-    font-family: "Baloo Tammudu", cursive;
-    color: #333333; 
-    font-weight: normal;
+  text-align: center;
+  font-family: "Baloo Tammudu", cursive;
+  font-size: 1.2rem;
+  color: #333333; 
+  font-weight: normal;
+}
+
+#errMsg {
+  text-align: center;
+  font-size: 0.68rem;
 }
 
 /*

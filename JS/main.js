@@ -1,4 +1,6 @@
 
+console.log(markers);
+
 // Opens the sidepanel on clicking the menu bar (3 horizontal lines)
 function openSideNav() {
     document.getElementById("mySideNav").style.width = "15vw";
@@ -13,8 +15,7 @@ function closeSideNav() {
     document.getElementsByTagName("main")[0].style.marginLeft = "0";
 }
 
-// Changes the menu bar icon to a cross and the classToggle callback calls 
-// conditinally one of the two function from above on clicking the menu bar
+
 function sideNavToggle() {
     let navButton = document.getElementById("sideNavButton");
     // Callback for the addEventListener below

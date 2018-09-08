@@ -10,6 +10,6 @@ var sights = [
   {name: 'Ta Pech Entrance', loc: {lat: 13.4090000, lng: 103.867100}}
 ];
 
+// store the locations in localStorage
 let stringSights = JSON.stringify(sights);
 localStorage.setItem("sights", stringSights);
-// console.log(localStorage.getItem("sights"));

@@ -4,12 +4,10 @@
   <head>
     <title> Angkor Wat </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="./JS/sights.js"></script>
-    <script async type="text/javascript" src="./JS/flickr.js"></script>
+    <!-- The src of 'gMapsScript' <script> and the 'onerror' are set in 'gmaps.js' -->
+    <script defer id="gMapsScript" type="text/javascript"></script>
+    <script type="text/javascript" src="./JS/base.js"></script>
     <script type="text/javascript" src="./JS/knockout-3.4.2.js"></script>
-    <script defer type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8GtH7D9GZ9wxLQgQ4b3UendpuOUOsqYQ&v=3&callback=initMap&language=en">
-    </script>
     <link href="./CSS/style.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
   </head>
@@ -21,7 +19,6 @@
         <h2> Places </h2>
         <input type="text" id="inputSight" onkeyup="searchSights()" 
                placeholder="Search for places..." title="Location search">
-
         <ul id="sightList">
         </ul>
       </div>
@@ -39,14 +36,14 @@
     </nav>
     
 
-    <main>
+    <main id="mainFrame">
       <div id="gMap"></div>
     </main>
 
+    <script async type="text/javascript" src="./JS/flickr.js"></script>
     <script async type="text/javascript" src="./JS/gmaps.js"></script>
     <script async type="text/javascript" src="./JS/main.js"></script>
   
   </body>
 
 </html> 
-
