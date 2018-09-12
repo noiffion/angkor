@@ -4,7 +4,7 @@
   <head>
     <title> Angkor Wat </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The src of 'gMapsScript' <script> and the 'onerror' are set in 'gmaps.js' -->
+    <!-- Here the src of 'gMapsScript' <script> and the 'onerror' are set in 'gmaps.js' -->
     <script defer id="gMapsScript" type="text/javascript"></script>
     <script type="text/javascript" src="./JS/base.js"></script>
     <script type="text/javascript" src="./JS/knockout-3.4.2.js"></script>
@@ -15,28 +15,33 @@
   <body>
 
     <aside>
-      <div id="mySideNav" class="sideNav">
+      <div id="mySideNav" class="sideNav" data-bind="style: {width: sideNav() ? '16vw': '0'}">
         <h2> Places </h2>
-        <input type="text" id="inputSight" onkeyup="searchSights()" 
-               placeholder="Search for places..." title="Location search">
-        <ul id="sightList">
+        <input title="Location search" type="text" id="inputSight" placeholder="Search..." 
+               data-bind="event: {keyup: searchSights}">
+
+        <ul id="locationList" data-bind="foreach: sightsList">
+          <li data-bind="text: name, attr: {id: id}, click: $parent.sightClickedOn, 
+                         css: {selected: isSelected}, visible: isDisplayed"> 
+          </li>
         </ul>
       </div>
     </aside>
      
-    <nav>
-      <div id="sideNavButton">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
+    <nav data-bind="style: {marginLeft: sideNav() ? '16vw': '0'}">
+      <div id="sideNavButton" data-bind="click: sideNavToggle">
+        <div class="bar" data-bind="css: {cross1: sideNav()}"></div>
+        <div class="bar" data-bind="css: {cross2: sideNav()}"></div>
+        <div class="bar" data-bind="css: {cross3: sideNav()}"></div>
       </div>
       <div id="title">
         <h1> The sights of Angkor Wat </h1>
+        <!-- A hidden element that servers as a channel between the GMaps data and knockout-->
+        <input id="dataTransfer" data-bind="event: {focus: markerClickedOn}">
       </div>
     </nav>
-    
 
-    <main id="mainFrame">
+    <main id="mainFrame" data-bind="style: {marginLeft: sideNav() ? '16vw': '0'}">
       <div id="gMap"></div>
     </main>
 

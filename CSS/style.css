@@ -52,7 +52,7 @@ nav {
   padding: 1vw;
 }
 
-.bar1, .bar2, .bar3 {
+.bar {
   width: 2vw;
   height: 0.4vw;
   background-color: #222222;
@@ -60,18 +60,19 @@ nav {
   transition: 0.5s;
 }
 
-.cross .bar1 {
+/* On calling 'sideNavToggle()' in main.js the (3 bars) menu icon will change to a cross*/
+.cross1  {
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);  
 }
 
-.cross .bar2 { 
+.cross2  { 
   display: none;
 }
 
-.cross .bar3 {
+.cross3  {
   -webkit-transform: rotate(45deg) translate(-0.5vw, -0.5vw);  
-  transform: rotate(45deg) translate(-0.5vw, -0.5vw);
+  transform: rotate(45deg) translate(-0.52vw, -0.52vw);
 }
 
 #title {
@@ -93,10 +94,19 @@ nav {
   font-size: 1.5rem;
 }
 
+#dataTransfer {
+  font-size: 0.01rem;
+  background-color: #9ACD32;
+  border: none;
+}
+
+#dataTransfer:focus {
+  outline: none;
+}
+
 /* Searchbox */
 #inputSight {
  border: 1px solid #9ACD32;
- width: 11.5vw;
  background-image: url('./../IMG/searchicon.png');
  background-size: 2vw 2vw;
  background-position: left;
@@ -121,35 +131,40 @@ nav {
   transition: 0.3s;
 }
 
-.sideNav a { 
-  text-decoration: none;
-  font-size: 1rem;
-  font-family: "Baloo Tammudu", cursive;
-  color: #818181;
-  display: block;
-}
-
-.sideNav a:hover {
-  color: #f1f1f1;
-}
-
 .sideNav h2 {
   font-family: "Baloo Tammudu", cursive;
   color: #9ACD32;
   text-decoration: underline;
 }
 
-#sightList {
-  margin: 0;
-  padding: 0 0 0 1vw;
-  list-style: none;
+#locationList {
+  margin: 2vh 0 0 0;
+  padding: 0 0 0 1.8vw;
+  font-family: "Baloo Tammudu", cursive;
+  font-size: 0.8rem;
   text-align: left;
 }
 
-#sightList li {
+li {
   margin: 0;
   padding: 0;
+  color: #DCDCDC;
+  white-space: nowrap;
 }
+
+li:hover {
+  color: #9ACD32;
+  cursor: pointer;
+}
+
+.selected {
+  color: #FF4500;
+}
+
+li.selected:hover {
+  color: #FF4500;
+}
+
 
 
 /* Gmap */
@@ -168,7 +183,6 @@ main {
   margin: 0;
   padding: 0;
 }
-
 
 /* InfoWindow*/
 #infWinCaption {
