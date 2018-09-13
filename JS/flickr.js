@@ -9,6 +9,9 @@ const BASE_URL = "https://api.flickr.com/services/rest/?method=flickr.photos";
 const API_KEY = "&api_key=295c598483795b60225b6813082cc15e";
 
 
+//--------------------------------------------------------------------------------------------------
+
+
 /* 
  *  'searchLink()' is called in 'getPhoto()' to connect to the Flickr API's search method 
  *  which returns a response object containing the info of 10 photos taken 
@@ -22,6 +25,9 @@ async function searchLink(lat, lon)
   // waiting for the Flickr API to respond with a response object
   return await fetch(searchURL);
 }
+
+
+//--------------------------------------------------------------------------------------------------
 
 
 /*
@@ -42,6 +48,9 @@ async function getInfoLink(response)
   // getting and returning the response object with the info of the pic
   return await fetch(getInfURL);
 }
+
+
+//--------------------------------------------------------------------------------------------------
 
 
 /*
@@ -69,6 +78,9 @@ async function photoLinks(response)
             'staticURI': staticURL,
             'galleryURI': pD['flickrURL']} 
 }
+
+
+//--------------------------------------------------------------------------------------------------
 
 
 /*

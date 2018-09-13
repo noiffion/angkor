@@ -18,7 +18,7 @@
       <div id="mySideNav" class="sideNav" data-bind="style: {width: sideNav() ? '16vw': '0'}">
         <h2> Places </h2>
         <input title="Location search" type="text" id="inputSight" placeholder="Search..." 
-               data-bind="event: {keyup: searchSights}">
+               data-bind="click: searchClickedOn, event: {keyup: searchSights}">
 
         <ul id="locationList" data-bind="foreach: sightsList">
           <li data-bind="text: name, attr: {id: id}, click: $parent.sightClickedOn, 
@@ -37,7 +37,7 @@
       <div id="title">
         <h1> The sights of Angkor Wat </h1>
         <!-- A hidden element that servers as a channel between the GMaps data and knockout-->
-        <input id="dataTransfer" data-bind="event: {focus: markerClickedOn}">
+        <input id="dataTransfer" value="id: 0, open: false" data-bind="event: {focus: markerClickedOn}">
       </div>
     </nav>
 
