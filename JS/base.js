@@ -4,16 +4,16 @@
  *  in the same order and the same time I placed these shared variables here in the base.js
  *  This script is loaded first and it's synchronously loaded.
  */
-var gMap;
-var markers;
-var infWin;
-var greenMarker;
-var orangeMarker;
-var bounce;
-var drop;
+let gMap;
+let markers;
+let infWin;
+let greenMarker;
+let orangeMarker;
+let bounce;
+let drop;
 
 // Locations on the map - this functions here as a simple hard-coded DB
-var sights = [
+let sites = [
   {id: 1, name: 'Angkor Wat', loc: {lat: 13.412679, lng: 103.866967}},
   {id: 2, name: 'Angkor Wat Gateway', loc: {lat: 13.412679, lng: 103.861981}},
   {id: 3, name: 'Heaven and Hell Gallery', loc: {lat: 13.4117402, lng: 103.8674229}},
@@ -24,7 +24,7 @@ var sights = [
   {id: 8, name: 'Terrace of Honor', loc: {lat: 13.4125898, lng: 103.8653972}}
 ];
 
-// store the locations ('sights') in localStorage for permanent access
-let stringSights = JSON.stringify(sights);
-localStorage.setItem("sights", stringSights);
-localStorage.setItem("sightsLen", sights.length);
+// store the locations ('sites') in localStorage for permanent access
+let stringSites = JSON.stringify(sites);
+localStorage.setItem("sites", stringSites);
+localStorage.setItem("sitesLen", sites.length);

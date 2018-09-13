@@ -3,11 +3,12 @@
 
   <head>
     <title> Angkor Wat </title>
+    <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Here the src of 'gMapsScript' <script> and the 'onerror' are set in 'gmaps.js' -->
-    <script defer id="gMapsScript" type="text/javascript"></script>
-    <script type="text/javascript" src="./JS/base.js"></script>
-    <script type="text/javascript" src="./JS/knockout-3.4.2.js"></script>
+    <script id="gMapsScript"></script>
+    <script src="./JS/base.js"></script>
+    <script src="./JS/knockout-3.4.2.js"></script>
     <link href="./CSS/style.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
   </head>
@@ -17,11 +18,11 @@
     <aside>
       <div id="mySideNav" class="sideNav" data-bind="style: {width: sideNav() ? '16vw': '0'}">
         <h2> Places </h2>
-        <input title="Location search" type="text" id="inputSight" placeholder="Search..." 
-               data-bind="click: searchClickedOn, event: {keyup: searchSights}">
+        <input title="Location search" type="text" id="inputSite" placeholder="Search..." 
+               data-bind="click: searchClickedOn, event: {keyup: searchSites}">
 
-        <ul id="locationList" data-bind="foreach: sightsList">
-          <li data-bind="text: name, attr: {id: id}, click: $parent.sightClickedOn, 
+        <ul id="locationList" data-bind="foreach: sitesList">
+          <li data-bind="text: name, attr: {id: id}, click: $parent.siteClickedOn, 
                          css: {selected: isSelected}, visible: isDisplayed"> 
           </li>
         </ul>
@@ -35,7 +36,7 @@
         <div class="bar" data-bind="css: {cross3: sideNav()}"></div>
       </div>
       <div id="title">
-        <h1> The sights of Angkor Wat </h1>
+        <h1> The Sights of Angkor Wat </h1>
         <!-- A hidden element that servers as a channel between the GMaps data and knockout -->
         <input id="dataTransfer" value="id: 0, open: false" data-bind="event: {focus: markerClickedOn}">
       </div>
@@ -45,9 +46,9 @@
       <div id="gMap"></div>
     </main>
 
-    <script async type="text/javascript" src="./JS/flickr.js"></script>
-    <script async type="text/javascript" src="./JS/gmaps.js"></script>
-    <script async type="text/javascript" src="./JS/main.js"></script>
+    <script async src="./JS/flickr.js"></script>
+    <script async src="./JS/gmaps.js"></script>
+    <script async src="./JS/main.js"></script>
   
   </body>
 

@@ -1,6 +1,6 @@
 
 // Creating the locations object
-var locations = JSON.parse(localStorage.getItem("sights"));
+let locations = JSON.parse(localStorage.getItem("sites"));
 
 
 //--------------------------------------------------------------------------------------------------
@@ -21,7 +21,8 @@ function gMapsURI()
   // Setting the GMaps API URI for the 'gMapsScript' <script> tag
   let gMapsURL = ("https://maps.googleapis.com/maps/api/js?" +
                   "key=AIzaSyC8GtH7D9GZ9wxLQgQ4b3UendpuOUOsqYQ" +
-                  "&v=3&callback=gMapsInit&language=en")
+                  "&v=3&callback=gMapsInit&language=en");
+  document.getElementById('gMapsScript').setAttribute('defer', 'defer');
   document.getElementById('gMapsScript').setAttribute('src', gMapsURL);
 };
 // Setting the attributes of the deferred 'gMapsScript' tag by calling 'gMapsURI()'
@@ -77,6 +78,7 @@ async function infWinContent(marker)
 
 
 //--------------------------------------------------------------------------------------------------
+
 
 /*
  *  This function closes the infoWindow
@@ -140,8 +142,8 @@ function infoWindow(marker, infWin, bounce)
 function makeMarkers(markers, drop, bounce, bounds)
 { 
   // Create a marker per location, and put into markers array
-  let icon = 'http://chart.googleapis.com/chart?chst=d_map_spin&chld=0.6|0|8ACD32|30|_|%E2%80%A2'
-  for (let i = 0; i < localStorage.getItem("sightsLen");  i++)
+  const icon = 'http://chart.googleapis.com/chart?chst=d_map_spin&chld=0.6|0|8ACD32|30|_|%E2%80%A2'
+  for (let i = 0; i < localStorage.getItem("sitesLen");  i++)
     {
       markers[i].id = locations[i].id;
       markers[i].setMap(gMap);
@@ -196,18 +198,18 @@ function gMapsInit()
   // center of the viewport
   google.maps.event.addDomListener(window, "resize", function()
   {
-	  var center = gMap.getCenter();
+	  let center = gMap.getCenter();
 	  google.maps.event.trigger(gMap, "resize");
 		gMap.setCenter(center);
 	});
 
   // The necessary google.maps objects for the functions above
   infWin = new google.maps.InfoWindow();
-  var bounds = new google.maps.LatLngBounds();
+  let bounds = new google.maps.LatLngBounds();
 
   // creating the structure for the array of markers
   markers = [];
-  for (let i = 0; i < localStorage.getItem("sightsLen");  i++)
+  for (let i = 0; i < localStorage.getItem("sitesLen");  i++)
   {
     markers.push((new google.maps.Marker()));
   }
