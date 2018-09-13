@@ -1,12 +1,16 @@
 /*
  *  Code here define variables that are shared between the knockout (main.js) script and
  *  Google Maps (gmaps.js) script. Since the loading of these scripts do not happen always
- *  in the same order, and same time I placed these shared variables here in the base.js
- *  This script is loaded and it's synchronous.
+ *  in the same order and the same time I placed these shared variables here in the base.js
+ *  This script is loaded first and it's synchronously loaded.
  */
 var gMap;
 var markers;
 var infWin;
+var greenMarker;
+var orangeMarker;
+var bounce;
+var drop;
 
 // Locations on the map - this functions here as a simple hard-coded DB
 var sights = [

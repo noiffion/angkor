@@ -1,15 +1,13 @@
 
 // Creating the locations object
 var locations = JSON.parse(localStorage.getItem("sights"));
-var greenMarker;
-var orangeMarker;
 
 
 //--------------------------------------------------------------------------------------------------
 
 
 /*
- *  'gMapsURI()' will set the 'src' and 'onerror' attributes of the gMapsScript <script> tag
+ *  'gMapsURI()' sets the 'src' and 'onerror' attributes of the gMapsScript <script> tag
  *  which is a deferred tag in the <head> of the main.html and it establishes the connection
  *  to the Google Maps API
  */
@@ -33,8 +31,20 @@ gMapsURI();
 //--------------------------------------------------------------------------------------------------
 
 
+// This function creates new marker icons (to change colors on click or on hover)
+function makeMarkerIcon(markerColor)
+{
+  if (markerColor === "green") {return greenMarker}
+  else if (markerColor === "orange") {return orangeMarker}
+  else {console.log("42")}
+};
+
+
+//--------------------------------------------------------------------------------------------------
+
+
 /*
- *  This function asynchronously creates the infoWindow content (error message or pic)
+ *  This function asynchronously creates the infoWindow content (error message or pic from Flickr)
  */ 
 async function infWinContent(marker)
 {
@@ -63,26 +73,32 @@ async function infWinContent(marker)
                       `<a href="${galleryURI}" target="_blank">` +
                       `<img src="${staticURI}">` + `</a>`);
   }
-}
+};
 
 
 //--------------------------------------------------------------------------------------------------
 
+/*
+ *  This function closes the infoWindow
+ */
+function infWinClose(marker, infWin)
+{
+  marker.setAnimation(null);
+  marker.setIcon(makeMarkerIcon('green'))
+  infWin.close();
+  // putting the marker.id to the value of the hidden <input id="dataTransfer"> element
+  document.getElementById("dataTransfer").value = JSON.stringify({id: marker.id, open: false});
+  document.getElementById("dataTransfer").focus();
+  document.getElementById("dataTransfer").blur();
 
-// This function creates new marker icons (to change colors on click or on hover)
-  function makeMarkerIcon(markerColor)
-  {
-    if (markerColor === "green") {return greenMarker}
-    else if (markerColor === "orange") {return orangeMarker}
-    else {console.log("Pick a color out of the two, would you?")}
-  }
+};
 
 
 //--------------------------------------------------------------------------------------------------
 
 
 /*
- *  This function populates the infoWindow when a marker is clicked on
+ *  This function populates the pop-up infoWindow when a marker (or list item) is clicked on
  */
 function infoWindow(marker, infWin, bounce)
 {
@@ -108,24 +124,18 @@ function infoWindow(marker, infWin, bounce)
   document.getElementById("dataTransfer").blur();
 
    // Make sure the marker property is cleared if the infWin is closed
-  infWin.addListener('closeclick', function()
+  infWin.addListener('closeclick', function() 
   {
-    marker.setAnimation(null);
-    marker.setIcon(makeMarkerIcon('green'))
-    infWin.close();
-    // putting the marker.id to the value of the hidden <input id="dataTransfer"> element
-    document.getElementById("dataTransfer").value = JSON.stringify({id: marker.id, open: false});
-    document.getElementById("dataTransfer").focus();
-    document.getElementById("dataTransfer").blur();
+    infWinClose(marker, infWin);
   });
-}
+};
 
 
 //--------------------------------------------------------------------------------------------------
 
 
 /*
- *  Creating the markers of the map
+ *  Creating the markers of the map and attaching three event listeners to them
  */
 function makeMarkers(markers, drop, bounce, bounds)
 { 
@@ -139,12 +149,14 @@ function makeMarkers(markers, drop, bounce, bounds)
       markers[i].setTitle(locations[i].name);
       markers[i].setIcon(icon);
       markers[i].setAnimation(drop);
-  
+
+      // mouseover event
       markers[i].addListener('mouseover', function()
       {
         this.setIcon(makeMarkerIcon('orange'));
       });
-  
+ 
+      // mouseout event
       markers[i].addListener('mouseout', function()
       {
         if (this.getAnimation() == null) {this.setIcon(makeMarkerIcon('green'));}
@@ -161,7 +173,7 @@ function makeMarkers(markers, drop, bounce, bounds)
       // Extend the boundaries of the map for each marker
       bounds.extend(markers[i].position);
     }
-}
+};
 
 
 //--------------------------------------------------------------------------------------------------
@@ -207,12 +219,12 @@ function gMapsInit()
                     'http://chart.googleapis.com/chart?chst=d_map_spin&chld=0.6|0|' + 
                     '8ACD32' + '|30|_|%E2%80%A2', null, null, null, null)
 
-  let drop = google.maps.Animation.DROP;
-  let bounce = google.maps.Animation.BOUNCE;
+  drop = google.maps.Animation.DROP;
+  bounce = google.maps.Animation.BOUNCE;
 
   // Creating the markers list
   makeMarkers(markers, drop, bounce, bounds);
   
   // Extending the map with the array of bound extensions 
   gMap.fitBounds(bounds);
-}
+};

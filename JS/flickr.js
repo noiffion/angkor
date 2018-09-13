@@ -13,7 +13,7 @@ const API_KEY = "&api_key=295c598483795b60225b6813082cc15e";
 
 
 /* 
- *  'searchLink()' is called in 'getPhoto()' to connect to the Flickr API's search method 
+ *  'searchLink()' is called in 'getPhoto()' to connect to the Flickr API's 'search' method 
  *  which returns a response object containing the info of 10 photos taken 
  *  within 100m radius of the 'lat' 'lon' coordinates
  */
@@ -24,7 +24,7 @@ async function searchLink(lat, lon)
   searchURL += "&radius=0.1&radius_units=km&per_page=10&format=json&nojsoncallback=1";
   // waiting for the Flickr API to respond with a response object
   return await fetch(searchURL);
-}
+};
 
 
 //--------------------------------------------------------------------------------------------------
@@ -32,8 +32,8 @@ async function searchLink(lat, lon)
 
 /*
  *  'getInfoLink()' will be called in the first conditional of 'getPhoto()'
- *  it takes a response object and uses the photo Id in it to construct
- *  the link for the second Flickr API method: getInfo and returns a response object
+ *  it takes a response object and uses the photo id in it to construct
+ *  the link for the second Flickr API method: 'getInfo' and returns a response object
  */
 async function getInfoLink(response) 
 {
@@ -47,7 +47,7 @@ async function getInfoLink(response)
                   "&format=json&nojsoncallback=1"
   // getting and returning the response object with the info of the pic
   return await fetch(getInfURL);
-}
+};
 
 
 //--------------------------------------------------------------------------------------------------
@@ -77,7 +77,7 @@ async function photoLinks(response)
     return {'error': false,
             'staticURI': staticURL,
             'galleryURI': pD['flickrURL']} 
-}
+};
 
 
 //--------------------------------------------------------------------------------------------------
@@ -112,4 +112,4 @@ async function getPhoto(lat, lon)
     console.log(error);
     return {'error': true};
   } 
-}
+};
