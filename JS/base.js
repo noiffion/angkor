@@ -13,7 +13,7 @@ let bounce;
 let drop;
 
 // Locations on the map - this functions here as a simple hard-coded DB
-let sites = [
+const SITES = [
   {id: 1, name: 'Angkor Wat', loc: {lat: 13.412679, lng: 103.866967}},
   {id: 2, name: 'Angkor Wat Gateway', loc: {lat: 13.412679, lng: 103.861981}},
   {id: 3, name: 'Heaven and Hell Gallery', loc: {lat: 13.4117402, lng: 103.8674229}},
@@ -24,4 +24,4 @@ let sites = [
   {id: 8, name: 'Terrace of Honor', loc: {lat: 13.4125898, lng: 103.8653972}}
 ];
 
-let sitesLen = sites.length;
+const SITES_LEN = SITES.length;

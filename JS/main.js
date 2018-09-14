@@ -1,16 +1,16 @@
 
 /*
  *  The function sets the visibility of the individual markers.
- *  Checking the type of markers (its undefined initially) to avoid errors. 
+ *  Checking the type of markers (its undefined initially) to avoid errors.
  *  It is called when we filter the list on the left of the webpage.
  */
 function visibleMarker(i, bool)
 {
   try
   {
-    if (typeof markers === 'object') 
+    if (typeof markers === 'object')
     {
-      for (let n = 1; n < sitesLen; n++)
+      for (let n = 1; n < SITES_LEN; n++)
       {
         // a site id and its associated marker position number in the markers list might
         // not be identical so it has to be checked here
@@ -37,14 +37,14 @@ function connectListToMarker(i)
   try
   {
     if (typeof infWin === 'object' && typeof markers === 'object')
-    { 
-      for (let n = 0; n < sitesLen; n++)
+    {
+      for (let n = 0; n < SITES_LEN; n++)
       {
         // a site id and its associated marker position number in the markers list might
         // not be identical so it has to be checked here
-        if (i === markers[n].id) 
+        if (i === markers[n].id)
         {
-          infoWindow(markers[n], infWin, bounce); 
+          infoWindow(markers[n], infWin, bounce);
           break;
         }
       }
@@ -62,11 +62,11 @@ function connectListToMarker(i)
  *  An object containing the characteristics of the sites and two computed observables.
  *  'isSelected' is a boolean depending on the 'siteClickedOn()' and 'markerClickedOn()'
  *  functions. If the <li> element or a marker on the map is clicked on 'highlightedID' will take
- *  the id of the associated Site object and 'isSelected' will turn true. That triggers the 
- *  'selected' CSS class on which makes the color of the list item orange. 
+ *  the id of the associated Site object and 'isSelected' will turn true. That triggers the
+ *  'selected' CSS class on which makes the color of the list item orange.
  *  'isDisplayed' will be true depending on the 'searchSites' function (if the searchbox on the
- *  upper left contains letters that are in the names of the sites it returns true for the 
- *  'isDisplayed' properties for those 'Site' objects and they remain visible in accordance with the 
+ *  upper left contains letters that are in the names of the sites it returns true for the
+ *  'isDisplayed' properties for those 'Site' objects and they remain visible in accordance with the
  *  binding). These 'Site' objects will be stored in the 'sitesList = ko.observableArray()'
  */
 let Site = function(id, name, loc, highlightedID, searchedText) {
@@ -76,7 +76,7 @@ let Site = function(id, name, loc, highlightedID, searchedText) {
   self.loc = loc,
   self.isSelected = ko.computed(function()
                     {
-                      if (highlightedID() === self.id)  
+                      if (highlightedID() === self.id)
                       {
                         connectListToMarker(self.id);
                         return true;
@@ -90,21 +90,21 @@ let Site = function(id, name, loc, highlightedID, searchedText) {
                        if (searchedText())
                        {
                          // display the sites which contain the letters typed in the searchbox
-                         if (name.includes(searchedText().toLowerCase())) 
+                         if (name.includes(searchedText().toLowerCase()))
                          {
                             visibleMarker(self.id, true);
                             return true;
                          }
                          // display nothing if there are letters in the searchbox which
                          // are not in the name of the sites
-                         else 
+                         else
                          {
                             visibleMarker(self.id, false);
                             return false;
                          }
                        }
                        // display everything if there is nothing in the searchbox
-                       else 
+                       else
                        {
                          visibleMarker(self.id, true);
                          return true;
@@ -124,12 +124,11 @@ const sitesVM = function() {
   *  Changes the menu bar icon to a cross and back to three bars and makes
   *  the side menu slide in and out (bindings to: 'mySideNav', <nav> and
   *  <main> elements).
-  */ 
+  */
   self.sideNav = ko.observable(false);
   self.sideNavToggle = function()
   {
-    if (self.sideNav()) {self.sideNav(false);}
-    else {self.sideNav(true);}
+    return self.sideNav() ? self.sideNav(false) : self.sideNav(true);
   };
 
  /*
@@ -143,17 +142,17 @@ const sitesVM = function() {
   // 'searchedText' will contain letters from the searchbox
   self.searchedText = ko.observable();
   // Creating the sitesList ko array from the 'site' objects
-  for (let i = 0; i < sitesLen; i++)
+  for (let i = 0; i < SITES_LEN; i++)
   {
     self.sitesList.push(
-      (new Site(sites[i]['id'], sites[i]['name'], sites[i]['loc'],
+      (new Site(SITES[i]['id'], SITES[i]['name'], SITES[i]['loc'],
                  self.highlightedID,  self.searchedText))
     )
   };
 
  /*
   *  sets 'highlightedID' to the id of the item that will be highlighted
-  *  or to 0 if there is nothing to be highlighted (binding to <li>) 
+  *  or to 0 if there is nothing to be highlighted (binding to <li>)
   */
   self.siteClickedOn = function(site)
   {
@@ -164,7 +163,7 @@ const sitesVM = function() {
  /*
   *  sets 'highlightedID' to the id of the item that will be highlighted
   *  or to 0 if there is nothing to be highlighted (binding to the hidden
-  *  <input> element that takes values from the Google Maps markers when 
+  *  <input> element that takes values from the Google Maps markers when
   *  they are clicked on
   */
   self.markerClickedOn = function(sitesVM, event)
@@ -189,16 +188,16 @@ const sitesVM = function() {
 
 
  /*
-  *  if the searchbox is clicked on it clears the highlights and the markers of the 
+  *  if the searchbox is clicked on it clears the highlights and the markers of the
   *  map (from changing colors and bouncing)
   */
   self.searchClickedOn = function()
   {
     // closing the infowindow and setting the marker green on clicking the search box
-    if (typeof infWin === 'object') 
-    { 
+    if (typeof infWin === 'object')
+    {
       let i = self.highlightedID()
-      for (let n = 0; n < sitesLen; n++)
+      for (let n = 0; n < SITES_LEN; n++)
       {
         // a site id and its associated marker position number in the markers list might
         // not be identical so it has to be checked here

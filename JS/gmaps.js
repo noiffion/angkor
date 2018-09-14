@@ -8,13 +8,13 @@ function gMapsURI()
 {
   // Displaying an error message on encountering errors (eg. network and firewall problems)
   document.getElementById('gMapsScript').setAttribute('onerror',
-           "document.getElementById('mainFrame').innerHTML =" +
-           "'<br>' + '&nbsp; Unfortunately, we could no load Google Maps. ' + '<br>' +" +
-           "'<br>' + '&nbsp; Check your network connections and firewall settings, please!';");
+           'document.getElementById("mainFrame").innerHTML =' +
+           '`<br>` + `&nbsp; Unfortunately, we could no load Google Maps. ` + `<br>` +' +
+           '`<br>` + `&nbsp; Check your network connections and firewall settings, please!`;');
   // Setting the GMaps API URI for the 'gMapsScript' <script> tag
-  let gMapsURL = ("https://maps.googleapis.com/maps/api/js?" +
-                  "key=AIzaSyC8GtH7D9GZ9wxLQgQ4b3UendpuOUOsqYQ" +
-                  "&v=3&callback=gMapsInit&language=en");
+  let gMapsURL = ('https://maps.googleapis.com/maps/api/js?' +
+                  'key=AIzaSyC8GtH7D9GZ9wxLQgQ4b3UendpuOUOsqYQ' +
+                  '&v=3&callback=gMapsInit&language=en');
   document.getElementById('gMapsScript').setAttribute('defer', 'defer');
   document.getElementById('gMapsScript').setAttribute('src', gMapsURL);
 };
@@ -28,9 +28,7 @@ gMapsURI();
 // This function creates new marker icons (to change colors on click or on hover)
 function makeMarkerIcon(markerColor)
 {
-  if (markerColor === "green") {return greenMarker}
-  else if (markerColor === "orange") {return orangeMarker}
-  else {console.log("42")}
+  return markerColor === 'green' ? greenMarker : orangeMarker;
 };
 
 
@@ -50,10 +48,10 @@ async function infWinContent(marker)
   // if there was an error connecting to the Flickr API:
   if (imgURI['error'] == true)
   {
-    let errMsg = ["Unfortunately, the photo from", "Flickr could not be reached.",
-                  "Please, consult the consol for", "further information!"];
-    infWin.setContent(`<h2 id="infWinCaption">` + marker.title + `</h2>` +
-                      `<p id="errMsg">` +
+    let errMsg = ['Unfortunately, the photo from', 'Flickr could not be reached.',
+                  'Please, consult the consol for', 'further information!'];
+    infWin.setContent(`<h2 id='infWinCaption'>` + marker.title + `</h2>` +
+                      `<p id='errMsg'>` +
                        errMsg[0] + `<br>` + errMsg[1] + `<br>` + `<br>` +
                        errMsg[2] + `<br>`+ errMsg[3] + `<br>` +
                       `</p>`);
@@ -63,10 +61,10 @@ async function infWinContent(marker)
   {
     let staticURI = imgURI['staticURI'];
     let galleryURI = imgURI['galleryURI'];
-    infWin.setContent(`<h2 id="infWinCaption">` + marker.title + `</h2>` +
-                      `<a href="${galleryURI}" target="_blank">` +
-                      `<img id="siteImage" src="${staticURI}">` + `</a>` + 
-                      `<img id="flickrLogo" src="./IMG/flickr-logo.png">`);
+    infWin.setContent(`<h2 id='infWinCaption'>` + marker.title + `</h2>` +
+                      `<a href='${galleryURI}' target='_blank'>` +
+                      `<img id='siteImage' src='${staticURI}'>` + `</a>` +
+                      `<img id='flickrLogo' src='./IMG/flickr-logo.png'>`);
   }
 };
 
@@ -83,9 +81,9 @@ function infWinClose(marker, infWin)
   marker.setIcon(makeMarkerIcon('green'))
   infWin.close();
   // putting the marker.id to the value of the hidden <input id="dataTransfer"> element
-  document.getElementById("dataTransfer").value = JSON.stringify({id: marker.id, open: false});
-  document.getElementById("dataTransfer").focus();
-  document.getElementById("dataTransfer").blur();
+  document.getElementById('dataTransfer').value = JSON.stringify({id: marker.id, open: false});
+  document.getElementById('dataTransfer').focus();
+  document.getElementById('dataTransfer').blur();
 
 };
 
@@ -108,7 +106,7 @@ function infoWindow(marker, infWin, bounce)
   infWin.open(gMap, marker);
 
   // This is to ensure that only one marker is selected at a time
-  for (let i = 0; i < sitesLen; i++)
+  for (let i = 0; i < SITES_LEN; i++)
   {
     markers[i].setAnimation(null);
     markers[i].setIcon(makeMarkerIcon('green'));
@@ -116,10 +114,10 @@ function infoWindow(marker, infWin, bounce)
   marker.setAnimation(bounce);
   marker.setIcon(makeMarkerIcon('orange'));
   infWinContent(marker);
-  document.getElementById("dataTransfer").blur();
+  document.getElementById('dataTransfer').blur();
 
    // Make sure the marker property is cleared if the infWin is closed
-  infWin.addListener('closeclick', function() 
+  infWin.addListener('closeclick', function()
   {
     infWinClose(marker, infWin);
   });
@@ -133,15 +131,15 @@ function infoWindow(marker, infWin, bounce)
  *  Creating the markers of the map and attaching three event listeners to them
  */
 function makeMarkers(markers, drop, bounce, bounds)
-{ 
+{
   // Create a marker per location, and put into markers array
   const icon = 'http://chart.googleapis.com/chart?chst=d_map_spin&chld=0.6|0|8ACD32|30|_|%E2%80%A2'
-  for (let i = 0; i < sitesLen;  i++)
+  for (let i = 0; i < SITES_LEN;  i++)
     {
-      markers[i].id = sites[i].id;
+      markers[i].id = SITES[i].id;
       markers[i].setMap(gMap);
-      markers[i].setPosition(sites[i].loc);
-      markers[i].setTitle(sites[i].name);
+      markers[i].setPosition(SITES[i].loc);
+      markers[i].setTitle(SITES[i].name);
       markers[i].setIcon(icon);
       markers[i].setAnimation(drop);
 
@@ -154,16 +152,16 @@ function makeMarkers(markers, drop, bounce, bounds)
       // mouseout event
       markers[i].addListener('mouseout', function()
       {
-        if (this.getAnimation() == null) {this.setIcon(makeMarkerIcon('green'));}
+        if (this.getAnimation() === null) {this.setIcon(makeMarkerIcon('green'));}
       });
   
       // Create an onclick event to open an infoWindow at each marker if it's already opened
       markers[i].addListener('click', function()
       { 
         // putting the marker.id to the value of the hidden <input id="dataTransfer"> element
-        document.getElementById("dataTransfer").value = JSON.stringify({id: this.id, open: true});
-        // this will trigger the 
-        document.getElementById("dataTransfer").focus();
+        document.getElementById('dataTransfer').value = JSON.stringify({id: this.id, open: true});
+        // this will trigger the
+        document.getElementById('dataTransfer').focus();
       });
       // Extend the boundaries of the map for each marker
       bounds.extend(markers[i].position);
@@ -177,7 +175,7 @@ function makeMarkers(markers, drop, bounce, bounds)
 /*
  *  'gMapsinit()' is the callback function called by the 'gMapsScript' <script>.
  *  It initializes the map content by accessing the Google Maps API
- *  
+ *
  */
 function gMapsInit()
 {
@@ -189,10 +187,10 @@ function gMapsInit()
 
   // Ensuring that on resizing the browser window the center of the map remains in the
   // center of the viewport
-  google.maps.event.addDomListener(window, "resize", function()
+  google.maps.event.addDomListener(window, 'resize', function()
   {
 	  let center = gMap.getCenter();
-	  google.maps.event.trigger(gMap, "resize");
+	  google.maps.event.trigger(gMap, 'resize');
 		gMap.setCenter(center);
 	});
 
@@ -202,7 +200,7 @@ function gMapsInit()
 
   // creating the structure for the array of markers
   markers = [];
-  for (let i = 0; i < sitesLen;  i++)
+  for (let i = 0; i < SITES_LEN;  i++)
   {
     markers.push((new google.maps.Marker()));
   }
@@ -211,7 +209,7 @@ function gMapsInit()
                      'http://chart.googleapis.com/chart?chst=d_map_spin&chld=0.6|0|' +
                      'FF4500' + '|30|_|%E2%80%A2', null, null, null, null)
   greenMarker = new google.maps.MarkerImage(
-                    'http://chart.googleapis.com/chart?chst=d_map_spin&chld=0.6|0|' + 
+                    'http://chart.googleapis.com/chart?chst=d_map_spin&chld=0.6|0|' +
                     '8ACD32' + '|30|_|%E2%80%A2', null, null, null, null)
 
   drop = google.maps.Animation.DROP;
@@ -220,6 +218,6 @@ function gMapsInit()
   // Creating the markers list
   makeMarkers(markers, drop, bounce, bounds);
   
-  // Extending the map with the array of bound extensions 
+  // Extending the map with the array of bound extensions
   gMap.fitBounds(bounds);
 };
