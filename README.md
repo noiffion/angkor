@@ -10,16 +10,16 @@ in the off-canvas menu in alphabetical order.
 
 ### Program files and requiered software
 
-A modern webbroswers is all that is needed, every other kind of software used is downloaded 
+A modern webbroswer is all that is needed, every other kind of software used is downloaded 
 automatically (in the main.html 'script' tags).
 
 By modern webbrowser I mean the following ones:
 - Chrome 55
-- Edge
+- Vivaldi 1.15
 - Firefox 42
 - Opera 42
 - Safari 10.1
-
+- Edge
 
 As mentioned before two APIs are used:
  - [Google Maps API](https://developers.google.com/maps/documentation/javascript/reference/map)
@@ -31,7 +31,7 @@ And the knockout.js framework:
 
 ### Program structure and behaviour
 
-Structure(HTML), behaviour(JS), and design(CSS) are strictly separated: the main.html
+Structure (HTML), behaviour (JS), and decoration (CSS) are strictly separated: the main.html
 contains only the html skeleton of the app with the necessary knockout bindings.
 
 The five scripts in the JS folder (plus one in the main.html) drive the behaviour of the page.<br>
@@ -40,9 +40,9 @@ Here is a list of them: (in order of appearance in the main.html file). <br>
 - (1) The first one is the necessary deferred Gmaps script. Its attributes ('onerror'
 'src', 'defer') are set in the gmaps.js file 'gMapsURI()'to keep the HTML nice and clean.
 - (2) The base.js is loaded first and it contains the 'Sites' object which lists the attributes
-and coordinates of the locations. It is static script loaded synchronously as the data in there
-is needed in all files. It puts the 'Sites' object into the localStorage, and it also contains 
-the declarations of a couple of variables shared accross the scripts.
+and coordinates of the locations. It is static script loaded synchronously as the data there
+is needed in multiple (asynchronously loaded) files. It also contains the declarations of a couple 
+of variables shared accross the scripts.
 - (3) The third script is the knockout framework: knockout-3.4.2.js
 
 
@@ -61,6 +61,9 @@ and infoWindows on the map.
 
 The main functions are separated in all scripts and detailed comments explaining their behaviour 
 are placed above (and inside) each of one them. The scripts are set to be max 100 characters wide.
+I attempted to us localStorage to store the data of the 'sites' object but Edge refused to comply
+so I abandoned the idea (and it might be worth noting that 
+[not everyone](https://dev.to/rdegges/please-stop-using-local-storage-1i04) is on board anyway).
 
 
 ### User interface

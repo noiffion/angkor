@@ -1,11 +1,4 @@
 
-// Creating the locations object
-let locations = JSON.parse(localStorage.getItem("sites"));
-
-
-//--------------------------------------------------------------------------------------------------
-
-
 /*
  *  'gMapsURI()' sets the 'src' and 'onerror' attributes of the gMapsScript <script> tag
  *  which is a deferred tag in the <head> of the main.html and it establishes the connection
@@ -72,7 +65,8 @@ async function infWinContent(marker)
     let galleryURI = imgURI['galleryURI'];
     infWin.setContent(`<h2 id="infWinCaption">` + marker.title + `</h2>` +
                       `<a href="${galleryURI}" target="_blank">` +
-                      `<img src="${staticURI}">` + `</a>`);
+                      `<img id="siteImage" src="${staticURI}">` + `</a>` + 
+                      `<img id="flickrLogo" src="./IMG/flickr-logo.png">`);
   }
 };
 
@@ -114,8 +108,7 @@ function infoWindow(marker, infWin, bounce)
   infWin.open(gMap, marker);
 
   // This is to ensure that only one marker is selected at a time
-  mLen = markers.length;
-  for (let i = 0; i < mLen; i++)
+  for (let i = 0; i < sitesLen; i++)
   {
     markers[i].setAnimation(null);
     markers[i].setIcon(makeMarkerIcon('green'));
@@ -143,12 +136,12 @@ function makeMarkers(markers, drop, bounce, bounds)
 { 
   // Create a marker per location, and put into markers array
   const icon = 'http://chart.googleapis.com/chart?chst=d_map_spin&chld=0.6|0|8ACD32|30|_|%E2%80%A2'
-  for (let i = 0; i < localStorage.getItem("sitesLen");  i++)
+  for (let i = 0; i < sitesLen;  i++)
     {
-      markers[i].id = locations[i].id;
+      markers[i].id = sites[i].id;
       markers[i].setMap(gMap);
-      markers[i].setPosition(locations[i].loc);
-      markers[i].setTitle(locations[i].name);
+      markers[i].setPosition(sites[i].loc);
+      markers[i].setTitle(sites[i].name);
       markers[i].setIcon(icon);
       markers[i].setAnimation(drop);
 
@@ -209,7 +202,7 @@ function gMapsInit()
 
   // creating the structure for the array of markers
   markers = [];
-  for (let i = 0; i < localStorage.getItem("sitesLen");  i++)
+  for (let i = 0; i < sitesLen;  i++)
   {
     markers.push((new google.maps.Marker()));
   }

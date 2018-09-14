@@ -24,7 +24,4 @@ let sites = [
   {id: 8, name: 'Terrace of Honor', loc: {lat: 13.4125898, lng: 103.8653972}}
 ];
 
-// store the locations ('sites') in localStorage for permanent access
-let stringSites = JSON.stringify(sites);
-localStorage.setItem("sites", stringSites);
-localStorage.setItem("sitesLen", sites.length);
+let sitesLen = sites.length;

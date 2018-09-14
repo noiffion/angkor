@@ -10,7 +10,7 @@ function visibleMarker(i, bool)
   {
     if (typeof markers === 'object') 
     {
-      for (let n = 1; n < markers.length; n++)
+      for (let n = 1; n < sitesLen; n++)
       {
         // a site id and its associated marker position number in the markers list might
         // not be identical so it has to be checked here
@@ -38,7 +38,7 @@ function connectListToMarker(i)
   {
     if (typeof infWin === 'object' && typeof markers === 'object')
     { 
-      for (let n = 0; n < markers.length; n++)
+      for (let n = 0; n < sitesLen; n++)
       {
         // a site id and its associated marker position number in the markers list might
         // not be identical so it has to be checked here
@@ -134,22 +134,19 @@ const sitesVM = function() {
 
  /*
   *  Putting the list of sites in the "locationList" <ul> tag by first putting
-  *  the list of sites from the localStorage to the 'sitesList' observablearray
+  *  the list of sites to the 'sitesList' observablearray
   *  then rendering them with foreach in the View (HTML <ul id="sitesList">).
   */
-  let locs = JSON.parse(localStorage.getItem("sites"));
-  let locsLen = localStorage.getItem("sitesLen");
-  
   self.sitesList = ko.observableArray();
   // 'highlightedID' will contain an id
   self.highlightedID = ko.observable(0);
   // 'searchedText' will contain letters from the searchbox
   self.searchedText = ko.observable();
   // Creating the sitesList ko array from the 'site' objects
-  for (let i = 0; i < locsLen; i++)
+  for (let i = 0; i < sitesLen; i++)
   {
     self.sitesList.push(
-      (new Site(locs[i]['id'], locs[i]['name'], locs[i]['loc'],
+      (new Site(sites[i]['id'], sites[i]['name'], sites[i]['loc'],
                  self.highlightedID,  self.searchedText))
     )
   };
@@ -201,7 +198,7 @@ const sitesVM = function() {
     if (typeof infWin === 'object') 
     { 
       let i = self.highlightedID()
-      for (let n = 0; n < markers.length; n++)
+      for (let n = 0; n < sitesLen; n++)
       {
         // a site id and its associated marker position number in the markers list might
         // not be identical so it has to be checked here

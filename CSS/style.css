@@ -193,13 +193,17 @@ main {
   font-weight: normal;
 }
 
+#siteImage {
+  max-width: 40vw;
+  max-height: 40vh;
+}
+
 #errMsg {
   text-align: center;
   font-size: 0.68rem;
 }
 
-/*
-@media screen and (max-width: 450px) {
-
+#flickrLogo {
+  width: 2.5vw;
+  height: 2.5vw;
 }
-*/
