@@ -16,7 +16,7 @@
   <body>
 
     <aside>
-      <div id="mySideNav" class="sideNav" data-bind="style: {width: sideNav() ? '16vw': '0'}">
+        <div id="mySideNav" class="sideNav" data-bind="css: {offCanvas_1: sideNav()}">
         <h2> Places </h2>
         <input title="Location search" type="text" id="inputSite" placeholder="Search..." 
                data-bind="click: searchClickedOn, event: {keyup: searchSites}">
@@ -29,7 +29,7 @@
       </div>
     </aside>
      
-    <nav data-bind="style: {marginLeft: sideNav() ? '16vw': '0'}">
+    <nav data-bind="css: {offCanvas_2: sideNav()}">
       <div id="sideNavButton" data-bind="click: sideNavToggle">
         <div class="bar" data-bind="css: {cross1: sideNav()}"></div>
         <div class="bar" data-bind="css: {cross2: sideNav()}"></div>
@@ -42,7 +42,7 @@
       </div>
     </nav>
 
-    <main id="mainFrame" data-bind="style: {marginLeft: sideNav() ? '16vw': '0'}">
+    <main id="mainFrame" data-bind="css: {offCanvas_2: sideNav()}">
       <div id="gMap"></div>
     </main>
 

@@ -37,7 +37,7 @@ embed, object, video {
 
 
 /* Header: Menu icon (3 bars), Title */
-nav {        
+nav {
   height: 4.5vw;
   background-color: #9ACD32;
   display: flex;
@@ -66,7 +66,7 @@ nav {
   transform: rotate(-45deg);  
 }
 
-.cross2  { 
+.cross2  {
   display: none;
 }
 
@@ -138,10 +138,10 @@ nav {
 }
 
 #locationList {
-  margin: 2vh 0 0 0;
-  padding: 0 0 0 1.8vw;
+  margin: 2vh 0 0 1vw;
+  padding: 0 0 0 1.5vw;
   font-family: "Baloo Tammudu", cursive;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   text-align: left;
 }
 
@@ -206,4 +206,85 @@ main {
 #flickrLogo {
   width: 2.5vw;
   height: 2.5vw;
+}
+
+.offCanvas_1 {
+  width: 19vw;
+}
+
+.offCanvas_2 {
+  margin-left: 19vw;
+
+}
+
+@media only screen and (max-width: 700px) {
+
+  .bar {
+    width: 16px;
+    height: 3px;
+    margin: 2px 0;
+  }
+
+  .cross3  {
+    -webkit-transform: rotate(45deg) translate(-0.5vw, -0.5vw);  
+    transform: rotate(45deg) translate(-3.5px, -3.5px);
+ }
+
+  #sideNavButton {
+    padding: 6px 0 0 4px; 
+  }
+
+
+  .sideNav h2 {
+    font-size: 12px;
+  }
+
+  nav {        
+    height: 30px;
+  }
+
+  #title h1 {
+    padding: 5px 0 0 0;
+    font-size: 14px;
+  }
+
+  #locationList {
+    margin: 15px 0 0 0;
+    padding: 0 0 0 3px;
+    font-size: 10px;
+  }  
+
+  .offCanvas_1 {
+    width: 114px;
+  }
+  
+  .offCanvas_2 {
+    margin-left: 114px;
+  }
+
+  #inputSite {
+    background-size: 10px 10px;
+    margin: 1px;
+    padding: 3px 0 3px 12px;
+    font-size: 10px;
+    height: 20px;
+  }
+
+  #infWinCaption {
+    font-size: 10px; 
+  }
+
+  #flickrLogo {
+    width: 25px;
+    height: 25px;
+  }
+
+}
+
+@media only screen and (max-width: 400px) {
+
+   #title h1 {
+    padding: 5px 0 0 0;
+    font-size: 10px;
+  } 
 }

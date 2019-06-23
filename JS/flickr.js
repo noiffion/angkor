@@ -1,3 +1,5 @@
+'use strict';
+
 /*
  *  Two API methods are used to retrieve a photo from Flickr:
  *  1. search the flickr database looking for a list of photos
@@ -17,14 +19,13 @@ const API_KEY = '&api_key=295c598483795b60225b6813082cc15e';
  *  which returns a response object containing the info of 10 photos taken
  *  within 100m radius of the 'lat' 'lon' coordinates
  */
-async function searchLink(lat, lon)
-{
+async function searchLink(lat, lon) {
   // URI for the first ('search') API method --> returns 10 pictures
   let searchURL = BASE_URL + '.search' + API_KEY + `&lat=${lat}&lon=${lon}`;
   searchURL += '&radius=0.1&radius_units=km&per_page=10&format=json&nojsoncallback=1';
   // waiting for the Flickr API to respond with a response object
   return await fetch(searchURL);
-};
+}
 
 
 //--------------------------------------------------------------------------------------------------
@@ -35,19 +36,18 @@ async function searchLink(lat, lon)
  *  it takes a response object and uses the photo id in it to construct
  *  the link for the second Flickr API method: 'getInfo' and returns a response object
  */
-async function getInfoLink(response)
-{
+async function getInfoLink(response) {
   let photoId = await response.json();
   // picking one from the ten returned pics at random
   let rnd = Math.floor(Math.random()*10);
-  let pId = photoId['photos']['photo'][rnd]['id'];
+  let pId = photoId.photos.photo[rnd].id;
 
   // URI for the second ('getInfo') API method
   let getInfURL = BASE_URL + '.getInfo' + API_KEY + '&photo_id=' + pId +
                   '&format=json&nojsoncallback=1'
   // getting and returning the response object with the info of the pic
   return await fetch(getInfURL);
-};
+}
 
 
 //--------------------------------------------------------------------------------------------------
@@ -59,25 +59,24 @@ async function getInfoLink(response)
  *  two links: the URI of the static Flickr photo and a link to the Flickr user's
  *  gallery displaying the photo
  */
-async function photoLinks(response)
-{
-  photoData = await response.json();
+async function photoLinks(response) {
+  let photoData = await response.json();
   let pD = {};
-    pD['id'] = photoData['photo']['id'];
-    pD['farm'] = photoData['photo']['farm'];
-    pD['server'] = photoData['photo']['server'];
-    pD['secret'] = photoData['photo']['secret'];
-    pD['flickrURL'] = photoData['photo']['urls']['url'][0]['_content'];
+    pD.id = photoData.photo.id;
+    pD.farm = photoData.photo.farm;
+    pD.server = photoData.photo.server;
+    pD.secret = photoData.photo.secret;
+    pD.flickrURL = photoData.photo.urls.url[0]._content;
 
     // constructing the URL ('src') of the picture
-    let staticURL = 'https://farm' + pD['farm'];
-    staticURL += '.staticflickr.com/' + pD['server'];
-    staticURL += '/' + pD['id'];
-    staticURL += '_' + pD['secret'] + '_m.jpg';
+    let staticURL = 'https://farm' + pD.farm;
+    staticURL += '.staticflickr.com/' + pD.server;
+    staticURL += '/' + pD.id;
+    staticURL += '_' + pD.secret + '_m.jpg';
     return {'error': false,
             'staticURI': staticURL,
-            'galleryURI': pD['flickrURL']}
-};
+            'galleryURI': pD.flickrURL}
+}
 
 
 //--------------------------------------------------------------------------------------------------
@@ -88,8 +87,7 @@ async function photoLinks(response)
  *  API methods in one after another to get two links of one pic which is in the
  *  vicinity (100m) of the Gmaps marker (at 'lat, lon' coordinates)
  */
-async function getPhoto(lat, lon)
-{
+async function getPhoto(lat, lon) {
   try
   {
     let response = {};
@@ -112,4 +110,4 @@ async function getPhoto(lat, lon)
     console.log(error);
     return {'error': true};
   }
-};
+}

@@ -1,3 +1,5 @@
+'use strict';
+
 /*
  *  Code here define variables that are shared between the knockout (main.js) script and
  *  Google Maps (gmaps.js) script. Since the loading of these scripts do not happen always
