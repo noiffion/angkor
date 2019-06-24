@@ -7,6 +7,9 @@ It displays eight sites of a landmark Khmer architecture: the Angkor Wat temple 
 marking these locations in the Google Maps frame with green markers and listing them on the left
 in the off-canvas menu in alphabetical order.
 
+The demo of the site can be viewed [here](https://codepen.io/noiffion/project/full/XzobLE)
+
+
 
 ### Program files and requiered software
 
