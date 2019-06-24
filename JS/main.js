@@ -8,7 +8,7 @@
 function visibleMarker(i, bool) {
   try {
     if (typeof markers === 'object') {
-      for (let n = 1; n < SITES_LEN; n++) {
+      for (let n = 0; n < SITES_LEN; n++) {
         // a site id and its associated marker position number in the markers list might
         // not be identical so it has to be checked here
         if (i === markers[n].id) {
